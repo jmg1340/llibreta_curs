@@ -1,3 +1,14 @@
+# Objectiu de la app
+
+Aquesta app pretén construir la llibreta de curs que l'Ana utilitza cada any.
+
+A cada pagina hi ha:
+
+- _Titol_: Data inici (dilluns) i final (divendres)de la setmana.
+- 5 recuadres en vertical (correspònents als 5 dies de la setmana) on, per cada recuadre hi haurà l'horari
+  - hora
+  - assignatura
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
