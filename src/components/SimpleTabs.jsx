@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles, AppBar, Tabs, Tab, Typography,Box } from '@material-ui/core';
+import { makeStyles, AppBar, Tabs, Tab, Box, Grid } from '@material-ui/core';
 
 
 
@@ -20,7 +20,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3} border={"1px solid black"}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -45,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
+	clTPane:{
+		width: '50%'
+	}
 }));
 
 
@@ -63,14 +66,24 @@ export default function SimpleTabs() {
     <div className={classes.root}>
       <AppBar position="static" color="transparent">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label="Opcions" {...a11yProps(0)} />
+					<Tab label="Opcions" {...a11yProps(0)} />
           <Tab label="Llibreta" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
-        <Opcions />
+      
+			<TabPanel value={value} index={0}>
+			<Grid
+        container
+        spacing={2}
+        direction="column"
+        justifyContent="center"
+        alignItems="center"	
+				>			    
+				  <Opcions style={{ color: 'red' }}/>
+				</Grid>
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      
+			<TabPanel value={value} index={1}>
         Item Two
       </TabPanel>
     </div>

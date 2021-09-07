@@ -1,39 +1,57 @@
-import React, { Component } from "react";
-import { Grid, TextField } from "@material-ui/core"
+import React from "react";
+import { Grid, TextField, makeStyles } from "@material-ui/core"
 
-export default class OpcionsRang extends Component {
-  render() {
-    return (
+
+const useStyles = makeStyles((theme) => ({
+  clOpcionsR: {
+    '& > *': {
+      margin: theme.spacing(2),
+      // width: '25ch',
+    },
+		border: '1px solid black',
+		marginBottom: '5ch'
+  },
+	
+}));
+
+
+
+export default function OpcionsRang (props) {
+  const classes = useStyles();
+	
+		return (
       <Grid
         container
-        spacing={1}
+        spacing={2}
         direction="row"
         justifyContent="center"
         alignItems="center"
-        alignContent="center"
         wrap="nowrap"
+				className={ classes.clOpcionsR }
         
       >
         
       
           <TextField 
             id="standard-basic" 
-            label="Data inicial" 
-            variant="outlined" 
+            label="Data inicial curs" 
+            variant="outlined"
+						size="small" 
             InputLabelProps={{
                 shrink: true,
             }}
-						value={this.props.dataInici}
+						value={props.dataInici}
 
           />
           <TextField 
             id="standard-basic" 
-            label="Data final" 
-            variant="outlined" 
+            label="Data final curs" 
+            variant="outlined"
+						size="small" 
             InputLabelProps={{
                 shrink: true,
             }}
-						value={this.props.dataFinal}
+						value={props.dataFinal}
 
           />   
       
@@ -41,5 +59,5 @@ export default class OpcionsRang extends Component {
       
       </Grid>			
 		)
-  }
+  
 }

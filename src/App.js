@@ -8,10 +8,8 @@ function App() {
   return (
     <div>
       <HeaderAppBar />
-
-        <SimpleTabs />
-
-       
+      <SimpleTabs />
+     
     </div>
     
 
