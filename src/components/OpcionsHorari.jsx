@@ -21,14 +21,14 @@ const styles = (theme) => ({
 class OpcionsHorari extends Component {
 
 
-	methodToOnChange = (evt) => {
-		const index = this.state.horari.indexOf(evt.target)
-		console.log(`Index: ${index}`)
-		// console.log( evt.target.name, evt.target.value )
+	methodToOnChange = linia => evt => {
+		
+		console.log( evt.target.name, evt.target.value )
+		console.log( "LINIA: " + linia)
 		// this.props.guardaValor( evt.target.name, evt.target.value )
 		this.props.onChange ({
 			diaSetmana: this.props.diaSetmana,
-			index: index,
+			linia: linia,
 			camp: evt.target.name, 
 			valor: evt.target.value
 		})
@@ -62,10 +62,11 @@ class OpcionsHorari extends Component {
 				>
 					
 					{
-						this.props.horari.map( (objHoraMateria, index) => {
-							
+						Object.keys(this.props.horari).map( (keyLinia, index) => {
+							let hora = this.props.horari[keyLinia].hora
+							let materia = this.props.horari[keyLinia].materia
+								
 							return (
-
 								<Grid
 									key={index}
 									container
@@ -79,39 +80,35 @@ class OpcionsHorari extends Component {
 								>
 				
 									<TextField 
-										name={`hora${index + 1}`} 
+										name={`hora`} 
 										label="Hora" 
 										variant="outlined"
 										size="small" 
 										InputLabelProps={{
 												shrink: true,
 										}}
-										value={objHoraMateria[`hora${index + 1}`]}
-										onChange={ this.methodToOnChange }
+										value={hora}
+										onChange={ this.methodToOnChange( keyLinia ) }
 									/>
 
 									<TextField 
-										name={`materia${index + 1}`} 
+										name={`materia`} 
 										label="Materia" 
 										variant="outlined"
 										size="small" 
 										InputLabelProps={{
 												shrink: true,
 										}}
-										value={objHoraMateria[`materia${index + 1}`]}
+										value={materia}
 										onChange={ this.methodToOnChange }
 									/>   
-
-								
-								</Grid>			
-
-
+								</Grid>
 							)
+
 						})
 
 					}
-
-
+					
 				</Grid>			
 			</div>
 
