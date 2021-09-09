@@ -1,9 +1,9 @@
-import React from "react";
-import { Grid, TextField, makeStyles,Typography } from "@material-ui/core"
+import React, { Component } from "react";
+import { withStyles, Grid, TextField, makeStyles,Typography } from "@material-ui/core"
 
 
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
@@ -13,89 +13,112 @@ const useStyles = makeStyles((theme) => ({
 		// marginBottom: '5ch'
   },
 	
-}));
+});
 
 
 
 
-export default function OpcionsHorari (props) {
-	const classes = useStyles();
+class OpcionsHorari extends Component {
 
-	return (
-		<div>
 
-			<Typography 
-				variant="h6" 
-				color="initial"
-				style={{marginTop: '5ch', marginBottom: '2ch'}}
+	methodToOnChange = (evt) => {
+		const index = this.state.horari.indexOf(evt.target)
+		console.log(`Index: ${index}`)
+		// console.log( evt.target.name, evt.target.value )
+		// this.props.guardaValor( evt.target.name, evt.target.value )
+		this.props.onChange ({
+			diaSetmana: this.props.diaSetmana,
+			index: index,
+			camp: evt.target.name, 
+			valor: evt.target.value
+		})
+	}
+
+
+
+
+	render() {
+		const { classes } = this.props;	
+		return (
+			<div>
+
+				<Typography 
+					variant="h6" 
+					color="initial"
+					style={{marginTop: '5ch', marginBottom: '2ch'}}
+					>
+						{this.props.diaSetmana}
+					</Typography>
+
+				<Grid
+					container
+					spacing={1}
+					direction="column"
+					justifyContent="center"
+					alignItems="center"
+					alignContent="center"
+					wrap="nowrap"
+
 				>
-					{props.diaSetmana}
-				</Typography>
-
-			<Grid
-				container
-				spacing={1}
-				direction="column"
-				justifyContent="center"
-				alignItems="center"
-				alignContent="center"
-				wrap="nowrap"
-
-			>
-				
-				{
-					props.horari.map( (objHoraMateria, index) => {
-						
-						return (
-
-							<Grid
-								key={index}
-								container
-								spacing={1}
-								direction="row"
-								justifyContent="center"
-								alignItems="center"
-								alignContent="center"
-								wrap="nowrap"
-								className={ classes.root }
-							>
-			
-								<TextField 
-									name="hora{index}" 
-									label="Hora" 
-									variant="outlined"
-									size="small" 
-									InputLabelProps={{
-											shrink: true,
-									}}
-									value={objHoraMateria[`hora${index + 1}`]}
-								/>
-
-								<TextField 
-									name="hora{index}" 
-									label="Materia" 
-									variant="outlined"
-									size="small" 
-									InputLabelProps={{
-											shrink: true,
-									}}
-									value={objHoraMateria[`materia${index + 1}`]}
-								/>   
-
+					
+					{
+						this.props.horari.map( (objHoraMateria, index) => {
 							
-							</Grid>			
+							return (
+
+								<Grid
+									key={index}
+									container
+									spacing={1}
+									direction="row"
+									justifyContent="center"
+									alignItems="center"
+									alignContent="center"
+									wrap="nowrap"
+									className={ classes.root }
+								>
+				
+									<TextField 
+										name={`hora${index + 1}`} 
+										label="Hora" 
+										variant="outlined"
+										size="small" 
+										InputLabelProps={{
+												shrink: true,
+										}}
+										value={objHoraMateria[`hora${index + 1}`]}
+										onChange={ this.methodToOnChange }
+									/>
+
+									<TextField 
+										name={`materia${index + 1}`} 
+										label="Materia" 
+										variant="outlined"
+										size="small" 
+										InputLabelProps={{
+												shrink: true,
+										}}
+										value={objHoraMateria[`materia${index + 1}`]}
+										onChange={ this.methodToOnChange }
+									/>   
+
+								
+								</Grid>			
 
 
-						)
-					})
+							)
+						})
 
-				}
+					}
 
 
-			</Grid>			
-		</div>
+				</Grid>			
+			</div>
 
-		
-		
-	)
+		)
+	}
+
 }
+
+
+export default withStyles(styles)(OpcionsHorari)

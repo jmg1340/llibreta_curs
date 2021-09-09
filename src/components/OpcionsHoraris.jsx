@@ -1,32 +1,104 @@
-import React from "react";
+import React, { Component } from "react";
 import { Grid, Typography } from "@material-ui/core"
 
 import OpcionsHorari from "./OpcionsHorari.jsx"
 
-export default function OpcionsRang (props){
-	return (
-		<Grid
-			container
-			spacing={1}
-			direction="column"
-			justifyContent="center"
-			alignItems="center"
-			alignContent="center"
-			wrap="nowrap"
+class OpcionsHoraris extends Component {
+	
+	state = {
+		horaris: {
+			Dll: [
+				{hora1: 'h1', materia1: 'DllM1'},
+				{hora2: 'h2', materia2: 'DllM2'},
+				{hora3: 'h3', materia3: 'DllM3'},
+				{hora4: 'h4', materia4: 'DllM4'},
+				{hora5: 'h5', materia5: 'DllM5'},
+				{hora6: 'h6', materia6: 'DllM6'},
+				{hora7: 'h7', materia7: 'DllM7'},
+				{hora8: 'h8', materia8: 'DllM8'},
+			],
+			Dm:  [
+				{hora1: 'h1', materia1: 'DmM1'},
+				{hora2: 'h2', materia2: 'DmM2'},
+				{hora3: 'h3', materia3: 'DmM3'},
+				{hora4: 'h4', materia4: 'DmM4'},
+				{hora5: 'h5', materia5: 'DmM5'},
+				{hora6: 'h6', materia6: 'DmM6'},
+				{hora7: 'h7', materia7: 'DmM7'},
+				{hora8: 'h8', materia8: 'DmM8'},
+			],
+			Dcr: [
+				{hora1: 'h1', materia1: 'DcrM1'},
+				{hora2: 'h2', materia2: 'DcrM2'},
+				{hora3: 'h3', materia3: 'DcrM3'},
+				{hora4: 'h4', materia4: 'DcrM4'},
+				{hora5: 'h5', materia5: 'DcrM5'},
+				{hora6: 'h6', materia6: 'DcrM6'},
+				{hora7: 'h7', materia7: 'DcrM7'},
+				{hora8: 'h8', materia8: 'DcrM8'},
+			],
+			Dj:  [
+				{hora1: 'h1', materia1: 'DjM1'},
+				{hora2: 'h2', materia2: 'DjM2'},
+				{hora3: 'h3', materia3: 'DjM3'},
+				{hora4: 'h4', materia4: 'DjM4'},
+				{hora5: 'h5', materia5: 'DjM5'},
+				{hora6: 'h6', materia6: 'DjM6'},
+				{hora7: 'h7', materia7: 'DjM7'},
+				{hora8: 'h8', materia8: 'DjM8'},
+			],
+			Dv:  [
+				{hora1: 'h1', materia1: 'DvM1'},
+				{hora2: 'h2', materia2: 'DvM2'},
+				{hora3: 'h3', materia3: 'DvM3'},
+				{hora4: 'h4', materia4: 'DvM4'},
+				{hora5: 'h5', materia5: 'DvM5'},
+				{hora6: 'h6', materia6: 'DvM6'},
+				{hora7: 'h7', materia7: 'DvM7'},
+				{hora8: 'h8', materia8: 'DvM8'},
+			]
+		}
+
+	}
+
+	guardaValor = (obj) => {
+		console.log( "estic a guarda Valor" )
+		console.log(obj)
+		console.log( `this.state.horaris[${obj.diaSetmana}][${obj.camp}]` )
+		console.log( this.state.horaris[obj.diaSetmana][obj.index][obj.camp] )
+		this.setState({ [ this.state.horaris[obj.diaSetmana][obj.index][obj.camp] ] : obj.valor})
+	}
+
+
+	render() {	
+		return (
+			<Grid
+				container
+				spacing={1}
+				direction="column"
+				justifyContent="center"
+				alignItems="center"
+				alignContent="center"
+				wrap="nowrap"
+				
+			>
+				
 			
-		>
+				<Typography variant="h6" color="initial">Horaris de la setmana</Typography>
+				
+				<OpcionsHorari diaSetmana="Dll" horari={this.state.horaris.Dll} onChange={(obj) => this.guardaValor(obj)} />
+				<OpcionsHorari diaSetmana="Dm" horari={this.state.horaris.Dm} onChange={this.guardaValor} />
+				<OpcionsHorari diaSetmana="Dcr" horari={this.state.horaris.Dcr} onChange={this.guardaValor} />
+				<OpcionsHorari diaSetmana="Dj" horari={this.state.horaris.Dj} onChange={this.guardaValor} />
+				<OpcionsHorari diaSetmana="Dv" horari={this.state.horaris.Dv} onChange={this.guardaValor} />
 			
-		
-			<Typography variant="h6" color="initial">Horaris de la setmana</Typography>
 			
-			<OpcionsHorari diaSetmana="Dilluns" horari={props.horaris.Dll} />
-			<OpcionsHorari diaSetmana="Dimarts" horari={props.horaris.Dm} />
-			<OpcionsHorari diaSetmana="Dimecres" horari={props.horaris.Dcr} />
-			<OpcionsHorari diaSetmana="Dijous" horari={props.horaris.Dj} />
-			<OpcionsHorari diaSetmana="Divendres" horari={props.horaris.Dv} />
-		
-		
-		</Grid>			
-	)
+			</Grid>			
+		)
+
+	}
 
 }
+
+
+export default OpcionsHoraris
