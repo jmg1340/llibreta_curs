@@ -100,7 +100,7 @@ class OpcionsHorari extends Component {
 												shrink: true,
 										}}
 										value={materia}
-										onChange={ this.methodToOnChange }
+										onChange={ this.methodToOnChange( keyLinia ) }
 									/>   
 								</Grid>
 							)

@@ -34,38 +34,19 @@ const styles = (theme) => ({
 
 
 class OpcionsRang extends Component  {
-  // classes = useStyles();
-
-
-	// [dataInici2, setDataInici2] = useState('')
-	// [dataFinal2, setDataFinal2] = useState('')
-	
 	
 	state = {
-		dataInici2: '',
-		dataFinal2: ''
+		dataInici2: '15/09/2021',
+		dataFinal2: '22/06/2022'
 	}
 
 	methodToOnChange = (event) => {
-		console.log( { [event.target.name] : event.target.value } )
-		// switch (event.target.name) {
-		// 	case "dataInici2": setDataInici2(event.target.value); break;
-		// 	case "dataFinal2": setDataFinal2( event.target.value); break
-		// }
-		new Promise ((resolve, reject) => {
-			this.setState({ [event.target.name] : event.target.value })
-			resolve()
-		}).then ( () => {
-			console.log(`STATE: dataInici2 : ${this.state.dataInici2}`, `STATE: dataFinal2 : ${this.state.dataFinal2}`)
-			// this.props.guardarDates( this.state.dataInici2, this.state.dataFinal2 )
-		})
-		
+		this.setState({ [event.target.name] : event.target.value })		
 	}
 
 	guardar = () => { this.props.guardarDates( this.state.dataInici2, this.state.dataFinal2 ) }
 
-	// console.log(props)
-	// console.log(props.guardarDates())
+
 	render() {
 		const { classes } = this.props;
 		return (
