@@ -23,19 +23,22 @@ export default class Llibreta extends Component {
 			layout: "portrait"
     });
 
+		ctx.doc.info.Title = 'LlibretaCurs'
+
+
 		
 
-		ctx.fillStyle='red';
+		ctx.fillStyle='black';
 		ctx.doc.fontSize(8)
 
 
 		// ------------------------------------------
 
 
-		ctx.doc.text("Aixo es una prova", 139.0, 65.0 - 7);
+		// ctx.doc.text("Aixo es una prova", 139.0, 65.0 - 7);
 
-		const  dPrimer = new Date("09/07/21");
-		const dUltim = new Date("09/20/21");
+		const dPrimer = new Date("09/29/21");
+		const dUltim  = new Date("10/11/21");
 
 		
 		
@@ -47,18 +50,26 @@ export default class Llibreta extends Component {
 			let diaSetmana = d.getDay()   // 0 - Diumenge; 1 - Dilluns; ...
 			let mesActual = d.getMonth()  // 0 - Gener; 1 - Febrer; ...
 
-			if ( mesActual !== mesAnterior ) {
-				ctx.doc.addPage();
-				// pintaCapçaleraMes()
-				mesAnterior = mesActual
-			}
 
 			// si el dia de la setmana no es un dissabte o diumenge...
 			if ( diaSetmana !== 6 && diaSetmana !== 0 ) {
+				
+				if ( mesActual !== mesAnterior ) {
+					ctx.doc.addPage();
+					mesAnterior = mesActual
+				}
+				ctx.doc.fontSize(15)
+				ctx.doc.text(this.nomMes(d.getMonth()), 30, 20)
+				ctx.doc.fontSize(8)
+				
+				
+				
+				// eslint-disable-next-line default-case
 				switch (diaSetmana) {
 					case 1: //Dilluns
 						this.pintaDia({
-							doc: ctx.doc,
+							d:d,
+							ctx: ctx,
 							horaris: horaris,
 							diaSetmana: diaSetmana,
 							x: 30, 
@@ -69,46 +80,50 @@ export default class Llibreta extends Component {
 						break
 					case 2: //Dimarts
 						this.pintaDia({
-							doc: ctx.doc,
+							d:d,
+							ctx: ctx,
 							horaris: horaris,
 							diaSetmana: diaSetmana,
 							x: 30, 
 							y: 50 + 150,
 							xLinia: 80, 
-							yLinia: 50 + 18.75,
+							yLinia: 50 + 150,
 						})
 						break
 					case 3: //Dimecres
 						this.pintaDia({
-							doc: ctx.doc,
+							d:d,
+							ctx: ctx,
 							horaris: horaris,
 							diaSetmana: diaSetmana,
 							x: 30, 
 							y: 50 + 150*2,
 							xLinia: 80, 
-							yLinia: 50 + 18.75*2,
+							yLinia: 50 + 150*2,
 						})
 						break
 					case 4: //Dijous
 						this.pintaDia({
-							doc: ctx.doc,
+							d:d,
+							ctx: ctx,
 							horaris: horaris,
 							diaSetmana: diaSetmana,
 							x: 30, 
 							y: 50 + 150*3,
 							xLinia: 80, 
-							yLinia: 50 + 18.75*3,
+							yLinia: 50 + 150*3,
 						})
 						break
 					case 5: //Divendres
 						this.pintaDia({
-							doc: ctx.doc,
+							d:d,
+							ctx: ctx,
 							horaris: horaris,
 							diaSetmana: diaSetmana,
 							x: 30, 
 							y: 50 + 150*4,
 							xLinia: 80, 
-							yLinia: 50 + 18.75*4,
+							yLinia: 50 + 150*4,
 						})
 						if (mesActual === mesAnterior) ctx.doc.addPage()
 						break
@@ -146,12 +161,10 @@ export default class Llibreta extends Component {
 		let yLinia = objParametres.yLinia
 		let hLinia = 18.75 // altura quadre del horari
 
-		let doc = objParametres.doc
+		let doc = objParametres.ctx.doc
 		let horaris = objParametres.horaris
 		let diaSetmana = objParametres.diaSetmana
 			
-		// pinta el recuadre general del dia
-		doc.lineJoin('miter').rect(x, y, 530, h).stroke();
 		
 
 		// si el numero del dia de la setmana coincideix amb un horari
@@ -165,15 +178,33 @@ export default class Llibreta extends Component {
 			let horarisDia = horaris[objDS[diaSetmana]]
 			Object.keys( horarisDia ).forEach( (keyLinia) => {
 				let objHM = horarisDia[keyLinia]
+				let xText = 3
+				let yText = 7
 
-				doc.lineJoin('miter').rect(xLinia, yLinia, 50, hLinia).stroke();					// pinta cuadre hora
-				doc.lineJoin('miter').rect(xLinia + 50, yLinia, 70, hLinia).stroke();     // pinta quadre materia
-				doc.lineJoin('miter').rect(xLinia + 50 + 70, yLinia, 360, hLinia).stroke();   // pinta quadre contingut
+				doc.lineJoin('miter').rect(xLinia, yLinia, 50, hLinia).stroke("grey");					// pinta cuadre hora
+				doc.text(objHM.hora, xLinia + xText, yLinia + yText)
+				
+				doc.lineJoin('miter').rect(xLinia + 50, yLinia, 70, hLinia).stroke("grey");     // pinta quadre materia
+				doc.text(objHM.materia, xLinia + 50 + xText, yLinia + yText)
+
+				doc.lineJoin('miter').rect(xLinia + 50 + 70, yLinia, 360, hLinia).stroke("grey");   // pinta quadre contingut
+				// doc.text(objHM.hora, xLinia + 50 + 70 + xText, yLinia + yText)
+
 				yLinia += hLinia
 
 
 			})
 		}
+
+		// pinta el recuadre general del dia
+		doc.lineJoin('miter').rect(x, y, 530, h).stroke("black");
+
+		doc.text(objDS[diaSetmana], x+3, y+3)
+		doc.fontSize(15)
+		doc.text(objParametres.d.getDate(), x+10, y+20)
+		doc.fontSize(8)
+
+
 
 	}
 
@@ -192,6 +223,7 @@ export default class Llibreta extends Component {
 	}
 
   nomMes = (numeroMes) => {
+    // eslint-disable-next-line default-case
     switch (numeroMes){
       case 0:
         return "Gener"
