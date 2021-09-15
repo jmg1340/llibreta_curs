@@ -12,15 +12,6 @@ export default class Llibreta extends Component {
 		let { dataInici, dataFinal, festius, horaris} = this.props.dades
 
 		const arrDades = this.preparacioDades( this.props.dades)
-/* 
-		const dPrimer = new Date("12/15/21");
-		const dUltim  = new Date("01/14/22");
-
-		let arrFestius = this.transformarTXTFestiusADatesFestius( dPrimer, festius )
-
-		console.log("dPrimer", dPrimer)
-		console.log("arrFestius", arrFestius)
- */
 
     var stream = window.blobStream();
     var ctx = new window.canvas2pdf.PdfContext(stream, {
@@ -46,90 +37,179 @@ export default class Llibreta extends Component {
 		// ------------------------------------------
 
 	
+		ctx.doc.addPage();
+		
 		// eslint-disable-next-line default-case
-		arrDades.forEach( objDada => {
-			// console.log("dia", objDada.diaNumero, objDada.diaHorari,  "mes:", objDada.mesNom, "novaPag", objDada.novaPagina)
-			if (objDada.novaPagina) ctx.doc.addPage()
+		arrDades.forEach( arrPlanes => {
 
-			switch (objDada.diaSetmana) {
-				case 1: //Dilluns
-					this.pintaDia({
-						d: objDada.data,
-						ctx: ctx,
-						horaris: horaris,
-						diaSetmana: objDada.diaSetmana,
-						diaNumero: objDada.diaNumero,
-						mesNom: objDada.mesNom,
-						diaHorari: objDada.diaHorari,
-						x: 30, 
-						y: 50,
-						xLinia: 80, 
-						yLinia: 50,
-					})
-					break
-				case 2: //Dimarts
-					this.pintaDia({
-						d: objDada.data,
-						ctx: ctx,
-						horaris: objDada.horaris,
-						diaSetmana: objDada.diaSetmana,
-						diaNumero: objDada.diaNumero,
-						mesNom: objDada.mesNom,
-						diaHorari: objDada.diaHorari,
-						x: 30, 
-						y: 50 + 150,
-						xLinia: 80, 
-						yLinia: 50 + 150,
-					})
-					break
-				case 3: //Dimecres
-					this.pintaDia({
-						d: objDada.data,
-						ctx: ctx,
-						horaris: objDada.horaris,
-						diaSetmana: objDada.diaSetmana,
-						diaNumero: objDada.diaNumero,
-						mesNom: objDada.mesNom,
-						diaHorari: objDada.diaHorari,
-						x: 30, 
-						y: 50 + 150*2,
-						xLinia: 80, 
-						yLinia: 50 + 150*2,
-					})
-					break
-				case 4: //Dijous
-					this.pintaDia({
-						d: objDada.data,
-						ctx: ctx,
-						horaris: objDada.horaris,
-						diaSetmana: objDada.diaSetmana,
-						diaNumero: objDada.diaNumero,
-						mesNom: objDada.mesNom,
-						diaHorari: objDada.diaHorari,
-						x: 30, 
-						y: 50 + 150*3,
-						xLinia: 80, 
-						yLinia: 50 + 150*3,
-					})
-					break
-				case 5: //Divendres
-					this.pintaDia({
-						d: objDada.data,
-						ctx: ctx,
-						horaris: objDada.horaris,
-						diaSetmana: objDada.diaSetmana,
-						diaNumero: objDada.diaNumero,
-						mesNom: objDada.mesNom,
-						diaHorari: objDada.diaHorari,
-						x: 30, 
-						y: 50 + 150*4,
-						xLinia: 80, 
-						yLinia: 50 + 150*4,
-					})
-					break
-			}
 
 			
+			arrPlanes.plana1.forEach( (obj) => {
+				switch (obj.diaSetmana) {
+					case 1: //Dilluns
+						this.pintaDia_Plana1({
+							// d: obj.data,
+							ctx: ctx,
+							horaris: horaris,
+							diaSetmana: obj.diaSetmana,
+							diaNumero: obj.diaNumero,
+							mesNom: obj.mesNom,
+							diaHorari: obj.diaHorari,
+							x: 30, 
+							y: 50,
+							xLinia: 80, 
+							yLinia: 50,
+						})
+						break
+					case 2: //Dimarts
+						this.pintaDia_Plana1({
+							// d: obj.data,
+							ctx: ctx,
+							horaris: obj.horaris,
+							diaSetmana: obj.diaSetmana,
+							diaNumero: obj.diaNumero,
+							mesNom: obj.mesNom,
+							diaHorari: obj.diaHorari,
+							x: 30, 
+							y: 50 + 150,
+							xLinia: 80, 
+							yLinia: 50 + 150,
+						})
+						break
+					case 3: //Dimecres
+						this.pintaDia_Plana1({
+							// d: obj.data,
+							ctx: ctx,
+							horaris: obj.horaris,
+							diaSetmana: obj.diaSetmana,
+							diaNumero: obj.diaNumero,
+							mesNom: obj.mesNom,
+							diaHorari: obj.diaHorari,
+							x: 30, 
+							y: 50 + 150*2,
+							xLinia: 80, 
+							yLinia: 50 + 150*2,
+						})
+						break
+					case 4: //Dijous
+						this.pintaDia_Plana1({
+							// d: obj.data,
+							ctx: ctx,
+							horaris: obj.horaris,
+							diaSetmana: obj.diaSetmana,
+							diaNumero: obj.diaNumero,
+							mesNom: obj.mesNom,
+							diaHorari: obj.diaHorari,
+							x: 30, 
+							y: 50 + 150*3,
+							xLinia: 80, 
+							yLinia: 50 + 150*3,
+						})
+						break
+					case 5: //Divendres
+						this.pintaDia_Plana1({
+							// d: obj.data,
+							ctx: ctx,
+							horaris: obj.horaris,
+							diaSetmana: obj.diaSetmana,
+							diaNumero: obj.diaNumero,
+							mesNom: obj.mesNom,
+							diaHorari: obj.diaHorari,
+							x: 30, 
+							y: 50 + 150*4,
+							xLinia: 80, 
+							yLinia: 50 + 150*4,
+						})
+						break
+				}
+			})
+
+			ctx.doc.addPage()
+
+
+
+			arrPlanes.plana2.forEach( (obj) => {
+				switch (obj.diaSetmana) {
+					case 1: //Dilluns
+						this.pintaDia_Plana2({
+							// d: obj.data,
+							ctx: ctx,
+							horaris: horaris,
+							diaSetmana: obj.diaSetmana,
+							diaNumero: obj.diaNumero,
+							mesNom: obj.mesNom,
+							diaHorari: obj.diaHorari,
+							x: 30, 
+							y: 50,
+							xLinia: 30, 
+							yLinia: 50,
+						})
+						break
+					case 2: //Dimarts
+						this.pintaDia_Plana2({
+							// d: obj.data,
+							ctx: ctx,
+							horaris: obj.horaris,
+							diaSetmana: obj.diaSetmana,
+							diaNumero: obj.diaNumero,
+							mesNom: obj.mesNom,
+							diaHorari: obj.diaHorari,
+							x: 30, 
+							y: 50 + 150,
+							xLinia: 30, 
+							yLinia: 50 + 150,
+						})
+						break
+					case 3: //Dimecres
+						this.pintaDia_Plana2({
+							// d: obj.data,
+							ctx: ctx,
+							horaris: obj.horaris,
+							diaSetmana: obj.diaSetmana,
+							diaNumero: obj.diaNumero,
+							mesNom: obj.mesNom,
+							diaHorari: obj.diaHorari,
+							x: 30, 
+							y: 50 + 150*2,
+							xLinia: 30, 
+							yLinia: 50 + 150*2,
+						})
+						break
+					case 4: //Dijous
+						this.pintaDia_Plana2({
+							// d: obj.data,
+							ctx: ctx,
+							horaris: obj.horaris,
+							diaSetmana: obj.diaSetmana,
+							diaNumero: obj.diaNumero,
+							mesNom: obj.mesNom,
+							diaHorari: obj.diaHorari,
+							x: 30, 
+							y: 50 + 150*3,
+							xLinia: 30, 
+							yLinia: 50 + 150*3,
+						})
+						break
+					case 5: //Divendres
+						this.pintaDia_Plana2({
+							// d: obj.data,
+							ctx: ctx,
+							horaris: obj.horaris,
+							diaSetmana: obj.diaSetmana,
+							diaNumero: obj.diaNumero,
+							mesNom: obj.mesNom,
+							diaHorari: obj.diaHorari,
+							x: 30, 
+							y: 50 + 150*4,
+							xLinia: 30, 
+							yLinia: 50 + 150*4,
+						})
+						break
+				}
+			})
+
+
+			ctx.doc.addPage()
 
 		})
 
@@ -148,7 +228,7 @@ export default class Llibreta extends Component {
 
 
 
-	pintaDia = (objParametres) => {
+	pintaDia_Plana1 = (objParametres) => {
 		
 		let objDS = { 1: "Dll", 2: "Dm", 3: "Dcr", 4: "Dj", 5: "Dv"	}
 
@@ -207,6 +287,53 @@ export default class Llibreta extends Component {
 
 
 
+	pintaDia_Plana2 = (objParametres) => {
+		
+		
+		let x = objParametres.x
+		let y = objParametres.y
+		let h = 150  // altura quadre del dia
+
+		let xLinia = objParametres.xLinia
+		let yLinia = objParametres.yLinia
+		let hLinia = 18.75 // altura quadre del horari
+
+		let doc = objParametres.ctx.doc
+		let horaris = objParametres.horaris
+		// let diaSetmana = objParametres.diaSetmana
+		let horarisDia = objParametres.diaHorari
+		let diaNumero = objParametres.diaNumero
+		let mesNom = objParametres.mesNom
+
+
+		Object.keys( horaris[horarisDia] ).forEach( (keyLinia) => {
+			let objHM = horaris[horarisDia][keyLinia]
+
+			let xText = 3
+			let yText = 7
+
+			// doc.lineJoin('miter').rect(xLinia, yLinia, 50, hLinia).stroke("grey");					// pinta cuadre hora
+			// doc.text(objHM.hora, xLinia + xText, yLinia + yText)
+			
+			doc.lineJoin('miter').rect(xLinia, yLinia, 265, hLinia).stroke("grey");     // pinta quadre materia
+			// doc.text(objHM.materia, xLinia + xText, yLinia + yText)
+
+			doc.lineJoin('miter').rect(xLinia + 265, yLinia, 265, hLinia).stroke("grey");   // pinta quadre contingut
+			// doc.text(objHM.hora, xLinia + 265 + xText, yLinia + yText)
+
+			yLinia += hLinia
+
+
+		})
+
+
+		// pinta el recuadre general del dia
+		doc.lineJoin('miter').rect(x, y, 530, h).stroke("black");
+
+	}
+
+
+
 	preparacioDades(objDadesProps) {
 		const { dataInici, dataFinal, festius, horaris} = objDadesProps
 
@@ -219,6 +346,9 @@ export default class Llibreta extends Component {
 		let numSetmana = this.numeroSetmana(dPrimer)
 		
 		let arr =[]
+		let arrPlanes = []
+		let arrPlana1 = []
+		let arrPlana2 = []
 		for (let d=dPrimer; d <= dUltim; d.setDate(d.getDate() + 1)){
 
 			let diaSetmana = d.getDay()   // 0 - Diumenge; 1 - Dilluns; ...
@@ -231,7 +361,7 @@ export default class Llibreta extends Component {
 				numSetmana = this.numeroSetmana(d)
 				
 				let obj = {
-					data: d,
+					// data: d,
 					diaSetmana: d.getDay(),   // 0 - Diumenge; 1 - Dilluns; ...
 					mes: d.getMonth(),  // 0 - Gener; 1 - Febrer; ...
 					mesNom: this.nomMes(d.getMonth()),
@@ -244,10 +374,22 @@ export default class Llibreta extends Component {
 				// console.log("dia:", `${obj.diaNumero} (${obj.diaHorari})`, "mes:", obj.mesNom, "S:", numSetmana, "SA:", numSetmanaAnterior, obj.novaPagina)
 
 				arr.push(obj)
+
+				if ( !obj.novaPagina ){ 
+					arrPlana1.push(obj)
+					arrPlana2.push(obj)
+				} else {
+					arrPlanes.push({ plana1 : arrPlana1, plana2 : arrPlana2 })
+					arrPlana1 = []; arrPlana1.push(obj)
+					arrPlana2 = []; arrPlana2.push(obj)
+
+				}
 			}
 		}
 
-		return arr
+		console.log(arrPlanes)
+
+		return arrPlanes
 
 	}
 
