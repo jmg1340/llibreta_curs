@@ -38,7 +38,7 @@ export default class Llibreta extends Component {
 
 	
 		ctx.doc.addPage();
-		
+
 		// eslint-disable-next-line default-case
 		arrDades.forEach( arrPlanes => {
 
@@ -378,10 +378,16 @@ export default class Llibreta extends Component {
 				if ( !obj.novaPagina ){ 
 					arrPlana1.push(obj)
 					arrPlana2.push(obj)
+					
+					// si estem a la úlitma data, guarara arrPlanes
+					if ( d.getTime() === dUltim.getTime() )	arrPlanes.push({ plana1 : arrPlana1, plana2 : arrPlana2 })
+				
 				} else {
 					arrPlanes.push({ plana1 : arrPlana1, plana2 : arrPlana2 })
 					arrPlana1 = []; arrPlana1.push(obj)
 					arrPlana2 = []; arrPlana2.push(obj)
+					// si estem a la úlitma data, guarara arrPlanes
+					if ( d.getTime() === dUltim.getTime() )	arrPlanes.push({ plana1 : arrPlana1, plana2 : arrPlana2 })
 
 				}
 			}

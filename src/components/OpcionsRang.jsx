@@ -1,5 +1,6 @@
 import React, { Component, useState } from "react";
-import { Grid, TextField, makeStyles, withStyles } from "@material-ui/core"
+import { Grid, TextField, Box, withStyles } from "@material-ui/core"
+
 
 
 // const useStyles = makeStyles((theme) => ({
@@ -24,6 +25,17 @@ const styles = (theme) => ({
 		border: '1px solid black',
 		marginBottom: '5ch'
 	},
+
+
+	container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
 	
 });
 	
@@ -37,7 +49,9 @@ class OpcionsRang extends Component  {
 	
 	state = {
 		dataInici2: '15/09/2021',
-		dataFinal2: '22/06/2022'
+		dataFinal2: '22/06/2022',
+
+		value: null
 	}
 
 	methodToOnChange = (event) => {
@@ -50,6 +64,7 @@ class OpcionsRang extends Component  {
 	render() {
 		const { classes } = this.props;
 		return (
+
 			<Grid
 				container
 				spacing={2}
@@ -58,37 +73,38 @@ class OpcionsRang extends Component  {
 				alignItems="center"
 				wrap="nowrap"
 				className={ classes.clOpcionsR }
-				
 			>
-				
 			
-					<TextField 
-						name="dataInici2" 
-						label="Data inicial curs" 
-						variant="outlined"
-						size="small" 
-						InputLabelProps={{
-								shrink: true,
-						}}
-						value={this.dataInici2}
-						onChange={this.methodToOnChange}
+				<TextField 
+					name="dataInici2" 
+					label="Data primer dia"
+					type="date"
+					defaultValue={this.dataInici2}
+					variant="outlined"
+					size="small" 
+					InputLabelProps={{
+							shrink: true,
+					}}
+					value={this.dataInici2}
+					onChange={this.methodToOnChange}
 
-					/>
-					<TextField 
-						name="dataFinal2" 
-						label="Data final curs" 
-						variant="outlined"
-						size="small" 
-						InputLabelProps={{
-								shrink: true,
-						}}
-						value={this.dataFinal2}
-						onChange={this.methodToOnChange}
-					/>   
+				/>
+				<TextField 
+					name="dataFinal2" 
+					label="Data últim dia" 
+					type="date"
+					defaultValue={this.dataFinal2}
+					variant="outlined"
+					size="small" 
+					InputLabelProps={{
+							shrink: true,
+					}}
+					value={this.dataFinal2}
+					onChange={this.methodToOnChange}
+				/>   
 			
+			</Grid>	
 			
-			
-			</Grid>			
 		)
 	}
 }
