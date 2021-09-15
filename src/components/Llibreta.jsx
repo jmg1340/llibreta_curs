@@ -337,8 +337,11 @@ export default class Llibreta extends Component {
 	preparacioDades(objDadesProps) {
 		const { dataInici, dataFinal, festius, horaris} = objDadesProps
 
-		const dPrimer = new Date("09/15/21");
-		const dUltim  = new Date("06/22/22");
+		
+		const dPrimer = new Date(dataInici);
+		const dUltim  = new Date(dataFinal);
+
+		console.log("dPrimer", dPrimer, "dUltim", dUltim)
 
 		const arrFestius = this.transformarTXTFestiusADatesFestius( dPrimer, festius )
 		const objDH = { 1: "Dll", 2: "Dm", 3: "Dcr", 4: "Dj", 5: "Dv"	}
@@ -393,6 +396,8 @@ export default class Llibreta extends Component {
 			}
 		}
 
+		console.log(arr)
+		console.log("---------")
 		console.log(arrPlanes)
 
 		return arrPlanes

@@ -1,6 +1,8 @@
 import React, { Component, useState } from "react";
 import { Grid, TextField, Box, withStyles } from "@material-ui/core"
-
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
+import moment from "moment"
+import MomentUtils from "@date-io/moment";
 
 
 // const useStyles = makeStyles((theme) => ({
@@ -48,13 +50,16 @@ const styles = (theme) => ({
 class OpcionsRang extends Component  {
 	
 	state = {
-		dataInici2: '15/09/2021',
-		dataFinal2: '22/06/2022',
+		dataInici2: localStorage.getItem('dataInici2') || '',
+		dataFinal2: localStorage.getItem('dataFinal2') || '',
 
 		value: null
 	}
 
+
 	methodToOnChange = (event) => {
+		localStorage.setItem(event.target.name, event.target.value);
+
 		this.setState({ [event.target.name] : event.target.value })		
 	}
 
@@ -74,12 +79,36 @@ class OpcionsRang extends Component  {
 				wrap="nowrap"
 				className={ classes.clOpcionsR }
 			>
-			
+
+{/* 
+				<MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
+					<DatePicker 
+						name="dataInici2" 
+						label="Data primer dia"
+						defaultValue={this.dataInici2}
+						openTo="year"
+						views={["year", "month", "day"]}
+						formatDate='DD-MM-YYYY' 
+						variant="outlined"
+						size="small" 
+						InputLabelProps={{
+								shrink: true,
+						}}
+						value={this.dataInici2}
+						onChange={this.methodToOnChange}
+					/>
+				</MuiPickersUtilsProvider>
+*/}
+
+
+
 				<TextField 
 					name="dataInici2" 
 					label="Data primer dia"
 					type="date"
 					defaultValue={this.dataInici2}
+					views={["year", "month", "day"]}
+					format='DD-MM-YYYY' 
 					variant="outlined"
 					size="small" 
 					InputLabelProps={{
@@ -87,8 +116,8 @@ class OpcionsRang extends Component  {
 					}}
 					value={this.dataInici2}
 					onChange={this.methodToOnChange}
-
 				/>
+
 				<TextField 
 					name="dataFinal2" 
 					label="Data últim dia" 
