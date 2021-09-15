@@ -40,7 +40,7 @@ class OpcionsFestius extends Component {
 
 	state = {
 		nouFestiu : '',
-		festius : [ "11/9", "12/10", "11/1", "6/12", "8/12", "1/5", "24/6" ],
+		festius : [ "11/9", "12/10", "1/11", "6/12", "8/12", "22/12 - 8/1", "1/5", "24/6" ],
 		
 	}
 	

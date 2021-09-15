@@ -71,19 +71,19 @@ class SimpleTabs extends Component {
 
 
 	guardarDates = (vDataInici, vDataFinal) => {
-		console.log("execució GUARDAR DATES")
+		// console.log("execució GUARDAR DATES")
 
 		this.setState({dataInici: vDataInici})
 		this.setState({dataFinal: vDataFinal})
 	}
 
 	guardarFestius = (vFestius) => {
-		console.log("execució GUARDAR FESTIUS")
+		// console.log("execució GUARDAR FESTIUS")
 		this.setState({festius: vFestius})
 	}
 
 	guardarHoraris = (vHoraris) => {
-		console.log("execució GUARDAR HORARIS")
+		// console.log("execució GUARDAR HORARIS")
 		this.setState({horaris: vHoraris})
 	}
 
@@ -110,11 +110,11 @@ class SimpleTabs extends Component {
 		// 	this.OpcsHrs.current.guardar()
 		// 	return
 		//  }).then( () => { 
-			console.log("Dades horaris passades")
+			// console.log("Dades horaris passades")
 			this.setState({ value: 1 })   // selecciona pestanya "Llibreta"
 			return
 		}).then( () => { 
-			console.log("CANVI A PESTANYA 'LLIBRETA'")
+			// console.log("CANVI A PESTANYA 'LLIBRETA'")
 			this.Llbr.current.generar()
 		})
 		
