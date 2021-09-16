@@ -49,16 +49,35 @@ const styles = (theme) => ({
 
 class OpcionsRang extends Component  {
 	
+
 	state = {
-		dataInici2: localStorage.getItem('dataInici2') || '',
-		dataFinal2: localStorage.getItem('dataFinal2') || '',
+		dataInici2: '',
+		dataFinal2: '',
 
 		value: null
 	}
 
+	componentDidMount() {
+		console.log("estic a componentDidMount")
+		this.setState({ dataInici2 : localStorage.getItem('dataInici2') || '' })
+		this.setState({ dataFinal2 : localStorage.getItem('dataFinal2') || '' })
+	}
+	componentDidUpdate() {
+		console.log("estic a componentDidUpdate")
+		this.setState({ dataInici2 : localStorage.getItem('dataInici2') || '' })
+		this.setState({ dataFinal2 : localStorage.getItem('dataFinal2') || '' })
+	}
+
 
 	methodToOnChange = (event) => {
-		localStorage.setItem(event.target.name, event.target.value);
+		// el format arriba YYYY-MM-DD
+		// const txtData = event.target.value
+		// console.log("txtData: " + new Date (txtData))
+		// const { year, mes, dia } = txtData.split("-")
+		// console.log("year: " + year, "mes: " + mes, "dia: " + dia)
+
+		localStorage.setItem(event.target.name,  event.target.value);
+		// localStorage.setItem(event.target.name, JSON.stringify(txtData));
 
 		this.setState({ [event.target.name] : event.target.value })		
 	}
@@ -107,7 +126,7 @@ class OpcionsRang extends Component  {
 					label="Data primer dia"
 					type="date"
 					defaultValue={this.dataInici2}
-					views={["year", "month", "day"]}
+					views={["day", "month", "year"]}
 					format='DD-MM-YYYY' 
 					variant="outlined"
 					size="small" 

@@ -313,16 +313,10 @@ export default class Llibreta extends Component {
 			let yText = 7
 
 			// doc.lineJoin('miter').rect(xLinia, yLinia, 50, hLinia).stroke("grey");					// pinta cuadre hora
-			// doc.text(objHM.hora, xLinia + xText, yLinia + yText)
+			// doc.lineJoin('miter').rect(xLinia, yLinia, 265, hLinia).stroke("grey");     // pinta quadre materia
+			doc.lineJoin('miter').rect(xLinia, yLinia, 530, hLinia).stroke("grey");   // pinta quadre contingut
 			
-			doc.lineJoin('miter').rect(xLinia, yLinia, 265, hLinia).stroke("grey");     // pinta quadre materia
-			// doc.text(objHM.materia, xLinia + xText, yLinia + yText)
-
-			doc.lineJoin('miter').rect(xLinia + 265, yLinia, 265, hLinia).stroke("grey");   // pinta quadre contingut
-			// doc.text(objHM.hora, xLinia + 265 + xText, yLinia + yText)
-
 			yLinia += hLinia
-
 
 		})
 
@@ -337,11 +331,11 @@ export default class Llibreta extends Component {
 	preparacioDades(objDadesProps) {
 		const { dataInici, dataFinal, festius, horaris} = objDadesProps
 
-		
 		const dPrimer = new Date(dataInici);
 		const dUltim  = new Date(dataFinal);
 
-		console.log("dPrimer", dPrimer, "dUltim", dUltim)
+		console.log("dataInici", dataInici, "\tdPrimer", dPrimer)
+		console.log("dataFinal", dataFinal, "\tdUltim", dUltim)
 
 		const arrFestius = this.transformarTXTFestiusADatesFestius( dPrimer, festius )
 		const objDH = { 1: "Dll", 2: "Dm", 3: "Dcr", 4: "Dj", 5: "Dv"	}
@@ -355,10 +349,16 @@ export default class Llibreta extends Component {
 		for (let d=dPrimer; d <= dUltim; d.setDate(d.getDate() + 1)){
 
 			let diaSetmana = d.getDay()   // 0 - Diumenge; 1 - Dilluns; ...
-			let esFestiu = arrFestius.some( dFestiu =>  dFestiu.getTime() === d.getTime())
+			let esFestiu = arrFestius.some( dFestiu => { 
+				// console.log(dFestiu, d)
+				// console.log(dFestiu.getDate(), d.getDate())
+				// console.log(dFestiu.getTime(), d.getTime(), dFestiu.getTime() === d.getTime())
+				// console.log("---------------------------")
+				return dFestiu.toDateString() === d.toDateString()
+			})
 
 			// si el dia no es un dissabte, diumenge o festiu...
-			if ( (diaSetmana !== 6 && diaSetmana !== 0) && !esFestiu ) {
+			if ( diaSetmana !== 6 && diaSetmana !== 0 && !esFestiu ) {
 				
 				numSetmanaAnterior = numSetmana
 				numSetmana = this.numeroSetmana(d)
@@ -439,7 +439,7 @@ export default class Llibreta extends Component {
 			let [ diaf, mesf ] = festiu.split("/")
 			return ( parseInt(mesf) < 9) ? new Date( `${mesf}/${diaf}/${anyDPrimer +1}`) : new Date( `${mesf}/${diaf}/${anyDPrimer}`) 
 		})
-
+		// console.log("arrDATAIndiv", arrDATAIndiv)
 
 		// 4. generar per cada rang les dates compreses en el rang
 		let arrDATARangs = []
