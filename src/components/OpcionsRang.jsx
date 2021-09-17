@@ -48,25 +48,38 @@ const styles = (theme) => ({
 
 
 class OpcionsRang extends Component  {
-	
+	constructor (props) {
+		super(props)
+		this.state = {
+			dataInici2: '',
+			dataFinal2: '',
 
-	state = {
-		dataInici2: '',
-		dataFinal2: '',
-
-		value: null
+			value: null
+		}	
 	}
 
-	componentDidMount() {
+	componentDidMount = () => {
 		console.log("estic a componentDidMount")
-		this.setState({ dataInici2 : localStorage.getItem('dataInici2') || '' })
-		this.setState({ dataFinal2 : localStorage.getItem('dataFinal2') || '' })
+
+    let vdataInici2 = JSON.parse(localStorage.getItem("dataInici2"));
+    if (vdataInici2) {
+      this.setState({ dataInici2 : vdataInici2 });
+    }
+    let vdataFinal2 = JSON.parse(localStorage.getItem("dataFinal2"));
+    if (vdataFinal2) {
+      this.setState({ dataFinal2 : vdataFinal2 });
+    }
+
+		// this.setState({ dataInici2 : localStorage.getItem('dataInici2') || '' })
+		// this.setState({ dataFinal2 : localStorage.getItem('dataFinal2') || '' })
 	}
-	componentDidUpdate() {
-		console.log("estic a componentDidUpdate")
-		this.setState({ dataInici2 : localStorage.getItem('dataInici2') || '' })
-		this.setState({ dataFinal2 : localStorage.getItem('dataFinal2') || '' })
-	}
+
+
+	// componentDidUpdate = () => {
+	// 	console.log("estic a componentDidUpdate")
+	// 	this.setState({ dataInici2 : localStorage.getItem('dataInici2') || '' })
+	// 	this.setState({ dataFinal2 : localStorage.getItem('dataFinal2') || '' })
+	// }
 
 
 	methodToOnChange = (event) => {
@@ -76,7 +89,7 @@ class OpcionsRang extends Component  {
 		// const { year, mes, dia } = txtData.split("-")
 		// console.log("year: " + year, "mes: " + mes, "dia: " + dia)
 
-		localStorage.setItem(event.target.name,  event.target.value);
+		localStorage.setItem(event.target.name,  JSON.stringify(event.target.value));
 		// localStorage.setItem(event.target.name, JSON.stringify(txtData));
 
 		this.setState({ [event.target.name] : event.target.value })		
