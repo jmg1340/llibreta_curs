@@ -2,7 +2,6 @@ import React, { Component, useState } from "react";
 import { Grid, TextField, Box, withStyles } from "@material-ui/core"
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 import moment from "moment"
-import MomentUtils from "@date-io/moment";
 
 
 // const useStyles = makeStyles((theme) => ({
@@ -51,7 +50,7 @@ class OpcionsRang extends Component  {
 	constructor (props) {
 		super(props)
 		this.state = {
-			dataInici2: '',
+			dataInici2: moment(new Date()).format("MM-DD-YYYY"),
 			dataFinal2: '',
 
 			value: null
@@ -61,24 +60,25 @@ class OpcionsRang extends Component  {
 	componentDidMount = () => {
 		console.log("estic a componentDidMount")
 
-    let vdataInici2 = JSON.parse(localStorage.getItem("dataInici2"));
+    let vdataInici2 = JSON.parse(window.localStorage.getItem("dataInici2"));
+		console.log("vDataInici2: " + vdataInici2)
     if (vdataInici2) {
       this.setState({ dataInici2 : vdataInici2 });
     }
-    let vdataFinal2 = JSON.parse(localStorage.getItem("dataFinal2"));
+    let vdataFinal2 = JSON.parse(window.localStorage.getItem("dataFinal2"));
     if (vdataFinal2) {
       this.setState({ dataFinal2 : vdataFinal2 });
     }
 
-		// this.setState({ dataInici2 : localStorage.getItem('dataInici2') || '' })
-		// this.setState({ dataFinal2 : localStorage.getItem('dataFinal2') || '' })
+		// this.setState({ dataInici2 : window.localStorage.getItem('dataInici2') || '' })
+		// this.setState({ dataFinal2 : window.localStorage.getItem('dataFinal2') || '' })
 	}
 
 
 	// componentDidUpdate = () => {
 	// 	console.log("estic a componentDidUpdate")
-	// 	this.setState({ dataInici2 : localStorage.getItem('dataInici2') || '' })
-	// 	this.setState({ dataFinal2 : localStorage.getItem('dataFinal2') || '' })
+	// 	this.setState({ dataInici2 : window.localStorage.getItem('dataInici2') || '' })
+	// 	this.setState({ dataFinal2 : window.localStorage.getItem('dataFinal2') || '' })
 	// }
 
 
@@ -89,7 +89,7 @@ class OpcionsRang extends Component  {
 		// const { year, mes, dia } = txtData.split("-")
 		// console.log("year: " + year, "mes: " + mes, "dia: " + dia)
 
-		localStorage.setItem(event.target.name,  JSON.stringify(event.target.value));
+		window.localStorage.setItem(event.target.name,  JSON.stringify(event.target.value));
 		// localStorage.setItem(event.target.name, JSON.stringify(txtData));
 
 		this.setState({ [event.target.name] : event.target.value })		

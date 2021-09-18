@@ -151,7 +151,9 @@ class SimpleTabs extends Component {
 								<OpcionsFestius ref={this.OpcsFsts}  guardarFestius={ this.guardarFestius }/>
 								<OpcionsHoraris ref={this.OpcsHrs} guardarHoraris={ this.guardarHoraris } />
 
-								<Button type="submit" color="primary" variant="contained" onSubmit={this.generarPDF}>Generar...</Button>
+								<div style={{margin: '60px', textAlign: 'center'}} >
+									<Button type="submit" color="primary" variant="contained" onSubmit={this.generarPDF} >Generar...</Button>
+								</div>
 							</form>
 					</Grid>
 				</TabPanel>

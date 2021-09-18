@@ -44,22 +44,32 @@ class OpcionsFestius extends Component {
 		
 	}
 	
+	componentDidMount = () => {
+		console.log("estic a componentDidMount")
+
+    let vfestius = JSON.parse(window.localStorage.getItem("festius"));
+		console.log("vfestius: " + vfestius)
+    if (vfestius) {
+      this.setState({ festius : vfestius });
+    }
+	}
 
 
 
 	methodToOnChange = (event) => { this.setState({ nouFestiu : event.target.value }) }
 	guardar = () => { this.props.guardarFestius( this.state.festius ) }
 	afegir = () => { 
-			this.setState({ festius : [ ...this.state.festius, this.state.nouFestiu ],
+			let arr = [ ...this.state.festius, this.state.nouFestiu ]
+			this.setState({ festius : arr,
 											nouFestiu: ''
 			}) 
+			window.localStorage.setItem("festius",  JSON.stringify(arr));
 	}
 	eliminarFestiu = row => { 
 		console.log(`Eliminant festiu amb ID: ${row.id}`)
-		this.setState({ festius: this.state.festius.filter( (festiu, index) =>{ 
-			console.log(row.id)
-			return row.id != index
-		} )})
+		let arr = this.state.festius.filter( (festiu, index) => row.id !== index)
+		this.setState({ festius: arr})
+		window.localStorage.setItem("festius",  JSON.stringify(arr));
 	}
 
 

@@ -62,6 +62,15 @@ class OpcionsHoraris extends Component {
 		}
 	}
 
+	componentDidMount = () => {
+		console.log("estic a componentDidMount")
+
+    let vhoraris = JSON.parse(window.localStorage.getItem("horaris"));
+		console.log("vhoraris: " + vhoraris)
+    if (vhoraris) {
+      this.setState({ horaris : vhoraris });
+    }
+	}
 
 
 	guardar = () => { this.props.guardarHoraris( this.state.horaris ) }
@@ -77,6 +86,9 @@ class OpcionsHoraris extends Component {
 				}
 			}
 		}))
+
+		const obj2 = this.state.horaris
+		window.localStorage.setItem("horaris",  JSON.stringify(obj2));
 	}
 
 
